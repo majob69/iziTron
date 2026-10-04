@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070b" />
+    <title>iziTron – Prototyp P0</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-title">KLX-7 <span>„Klix“</span></div>
+        <div class="meter"><label>Hülle</label><div class="bar"><div id="hud-hull"></div></div><span id="hud-hull-text"></span></div>
+        <div class="meter"><label>Hitze</label><div class="bar heat"><div id="hud-heat"></div></div></div>
+        <div id="hud-info"></div>
+      </div>
+      <div id="hud-status"></div>
+      <div id="hud-target"></div>
+      <div id="hud-msg"></div>
+      <div id="hud-prompt"></div>
+      <button id="btn-pause" title="Menü">☰</button>
+    </div>
+    <div id="crosshair"><div></div></div>
+
+    <div id="intro" class="overlay">
+      <div class="panel intro">
+        <h1>iziTron</h1>
+        <p class="sub">Prototyp P0 · Deck 1 – Förderebene</p>
+        <p>Die Zentral-KI <b>ARCHON</b> hat alle Droiden der Zitadelle umprogrammiert. Nur <b>Klix</b>, ein ausrangierter Bergungsdroide mit zu alter Firmware, ist übrig geblieben.</p>
+        <p>Säubere das Deck: <b>Kapere</b> Droiden im Platinen-Minispiel und baue ihre Teile ein, <b>schubse</b> sie in den Schacht oder <b>schieß</b> sie ab.</p>
+        <div class="controls">
+          <div><b>Bewegen</b> WASD / Pfeile · Stick</div>
+          <div><b>Feuern</b> Leertaste · A</div>
+          <div><b>Rammen</b> Shift · B</div>
+          <div><b>Kapern / Werkstatt</b> F · X</div>
+          <div><b>Sicht wechseln</b> C · Y</div>
+          <div><b>Iso drehen / Zoom</b> Q / E · Mausrad</div>
+          <div><b>Menü</b> Esc</div>
+        </div>
+        <button id="btn-start" class="primary big">Start</button>
+        <p class="muted small">Am Handy: Querformat, links Stick, rechts Tasten.</p>
+      </div>
+    </div>
+
+    <div id="pause" class="overlay hidden">
+      <div class="panel small-panel">
+        <h2>Pause</h2>
+        <button id="btn-resume" class="primary wide">Weiter</button>
+        <button id="btn-quality" class="wide">Grafik</button>
+        <button id="btn-sound" class="wide">Ton</button>
+        <button id="btn-restart" class="wide">Neustart</button>
+      </div>
+    </div>
+
+    <div id="end" class="overlay hidden">
+      <div class="panel small-panel">
+        <h2 id="end-title"></h2>
+        <p id="end-text"></p>
+        <div id="end-stats" class="stats"></div>
+        <button id="btn-again" class="primary wide">Nochmal</button>
+      </div>
+    </div>
+
+    <div id="rotate-hint">Bitte das Gerät ins Querformat drehen</div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

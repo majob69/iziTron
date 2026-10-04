@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "p0-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "prototype-web", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}
