@@ -86,6 +86,7 @@ function newGame() {
 
 function startPlay() {
   sfx.unlock();
+  if (input.usingTouch) enterFullscreen();
   $('intro').classList.add('hidden');
   state = 'play';
   hud.say('Hier MOTHER. Klix, du bist der letzte Droide, den ARCHON nicht umprogrammiert hat.', 4.5);
@@ -265,6 +266,48 @@ function showEnd(title, text) {
   const s = world.stats;
   const row = (l, v) => `<div class="st"><span>${l}</span><b>${v}</b></div>`;
   $('end-stats').innerHTML = row('Gekapert', s.captured) + row('Abgestürzt', s.fallen) + row('Zerstört', s.destroyed) + row('Zeit', `${Math.floor(playTime / 60)}:${String(Math.floor(playTime % 60)).padStart(2, '0')}`);
+}
+
+// ---------- Vollbild (wie Galaxy-Sisters: Knopf + automatisch beim Start auf Touch-Geräten) ----------
+
+const canFullscreen = !!document.documentElement.requestFullscreen;
+
+function enterFullscreen() {
+  if (!canFullscreen) return;
+  document.documentElement
+    .requestFullscreen({ navigationUI: 'hide' })
+    .then(() => screen.orientation?.lock?.('landscape'))
+    .catch(() => {
+      /* abgelehnt oder nicht unterstützt (z. B. iPhone Safari) */
+    });
+}
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else enterFullscreen();
+}
+
+function updateFullscreenLabels() {
+  const on = !!document.fullscreenElement;
+  $('btn-fullscreen').textContent = on ? '🗗' : '⛶';
+  $('btn-fullscreen').title = on ? 'Vollbild beenden' : 'Vollbild';
+  $('btn-fullscreen-menu').textContent = on ? 'Vollbild beenden' : 'Vollbild';
+}
+
+if (!canFullscreen) {
+  $('btn-fullscreen').remove();
+  $('btn-fullscreen-menu').remove();
+} else {
+  $('btn-fullscreen').addEventListener('click', (e) => {
+    toggleFullscreen();
+    e.currentTarget.blur();
+  });
+  $('btn-fullscreen-menu').addEventListener('click', toggleFullscreen);
+  document.addEventListener('fullscreenchange', () => {
+    updateFullscreenLabels();
+    // Manche Browser melden die neue Größe verzögert.
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
+  });
 }
 
 // ---------- Menü ----------
